@@ -1,0 +1,221 @@
+{
+  "openapi":"3.0.2",
+  "info": {
+    "title":"Go News REST API",
+    "description": "API Spesification for Go News",
+    "version":"1.0"
+  },
+  "servers": [
+    {"url":"http://localhost:8080/api"}
+  ],
+  "paths": {
+    "/news": {
+      "get": {
+        "tags": ["News API"],
+        "description": "List all News",
+        "summary": "List all News",
+        "responses": {
+          "200": {
+            "description": "Success Get All News",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/News"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["News API"],
+        "description": "Create new News",
+        "summary": "Create new News",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateNews"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Create new News",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/News"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/news/{newsId}": {
+      "get": {
+        "tags": ["News API"],
+        "description": "Get News by Id",
+        "summary": "Get News by Id",
+        "parameters": [
+          {
+            "name": "newsId",
+            "in": "path",
+            "description": "News ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success Get News by Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/News"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["News API"],
+        "description": "Update News by Id",
+        "summary": "Update News by Id",
+        "parameters": [
+          {
+            "name": "newsId",
+            "in": "path",
+            "description": "News ID"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateNews"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success Updated News By Id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/News"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      } ,
+      "delete": {
+        "tags": ["News API"],
+        "description": "Delete News by Id",
+        "summary": "Delete News by Id",
+        "parameters": [
+          {
+            "name": "newsId",
+            "in": "path",
+            "description": "News ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "News": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateNews": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
